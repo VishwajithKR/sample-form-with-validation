@@ -1,0 +1,32 @@
+.form {
+    border: 2px solid rgb(195, 195, 195);
+    width: 50rem;
+    border-radius: 8px;
+    justify-content: center;
+    margin: auto;
+    margin-top: 2rem;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 25px;
+}
+
+.input-bar {
+    width: 85% !important;
+    outline: none !important;
+    
+    /* border: none !important; */
+    outline: none !important    ;
+    box-shadow: none !important;
+}
+
+input{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-weight: 600;
+}
+
+.form-group {
+    margin-left: 5% !important;
+}
+
+.validation-error{
+    color:#ff0000; 
+    font-family: serif;font-size:medium;
+}

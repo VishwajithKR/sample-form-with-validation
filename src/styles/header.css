@@ -1,0 +1,15 @@
+.header {
+    background-color: rgb(1, 136, 109);
+    min-width: 100vh;
+    height: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+}
+
+.header h4 {
+    align-items: center;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
