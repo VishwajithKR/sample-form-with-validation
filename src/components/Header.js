@@ -3,11 +3,8 @@ import '../styles/header.css'
 
 function Header() {
     return (
-        <div className='header'>
-           
-             <h4>SAMPLE FORM</h4>
-           
-           
+        <div className='header'>      
+             <h4>SAMPLE FORM</h4>  
         </div>
     )
 }

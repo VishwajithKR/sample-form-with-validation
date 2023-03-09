@@ -1,27 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import data from '../assets/data'
 
 
 function Domyfile() {
 
 
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm();
+    const [to, setTo] = useState('DZA')
+    console.log(to)
+    // const {
+    //     register,
+    //     formState: { errors },
+    //     handleSubmit,
+    // } = useForm();
 
 
-    const onSubmit = (data) => {
-         console.log(data.name);
+    // const onSubmit = (data) => {
+    //     console.log(data.name);
+    // }
+
+    // const a = data 
+    // console.log(data)
+
+    let a = parseInt(to)
+
+    const Showvalue = () => {
+        alert(data[to])
     }
-   
-
 
     return (
 
         <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <select class="form-select" aria-label="Default select example" value={to} onChange={(e) => setTo(e.target.value)}>
+                {
+                    Object.keys(data).map((e) => <option value={e}>{e}</option>)
+
+                }
+
+            </select>
+            {data.to}
+            <button className="btn btn-info" onClick={Showvalue}>click</button>
+            {/* <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <h1>Registration</h1>
                 </div>
@@ -100,7 +119,7 @@ function Domyfile() {
                 <div>
                     <input className="button" type="submit" />
                 </div>
-            </form>
+            </form> */}
         </div>
     );
 }

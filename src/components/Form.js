@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import '../styles/form.css'
 import { useForm } from "react-hook-form";
+import data from '../assets/data'
+
 
 
 function Form() {
 
-const[rangeVald,setRangeVald]=useState(0)
+  const [Range, setRange] = useState(25)
+  const [to, setTo] = useState()
 
   const {
     register,
@@ -16,7 +19,7 @@ const[rangeVald,setRangeVald]=useState(0)
 
   const onSubmit = (data) => {
     console.log(data);
-    setRangeVald(data.age)
+
 
   }
 
@@ -26,6 +29,10 @@ const[rangeVald,setRangeVald]=useState(0)
 
         <div class="form-group row" >
 
+
+
+
+
           {/* text type */}
           <label class="col-sm-2 mt-3 col-form-label">UserName :</label>
           <div class="col-sm-10">
@@ -34,23 +41,6 @@ const[rangeVald,setRangeVald]=useState(0)
             />
             <span>
               {errors.name?.type === 'required' && <span className='validation-error'>enter your name</span>}
-            </span>
-          </div>
-
-          {/* number type */}
-          <label class="col-sm-2 mt-3 col-form-label">Ph.Number :</label>
-          <div class="col-sm-10">
-            <input type="number" class="form-control mt-3" placeholder="number"
-              {...register('phoneNumber', {
-                required: true,
-                minLength: 10,
-                maxLength: 10,
-              })}
-            />
-            <span>
-              {errors.phoneNumber?.type === 'required' && <span className='validation-error'>enter your phone number</span>}
-              {errors.phoneNumber?.type === 'maxLength' && <span className='validation-error'>maximum 10 numbers</span>}
-              {errors.phoneNumber?.type === 'minLength' && <span className='validation-error'>minimum 10 numbers</span>}
             </span>
           </div>
 
@@ -67,6 +57,48 @@ const[rangeVald,setRangeVald]=useState(0)
               {errors.email?.type === 'pattern' && <span className='validation-error'>format is not matched</span>}
             </span>
           </div>
+
+          {/* Options */}
+          <label class="col-sm-2 mt-3 col-form-label">Options :</label>
+          <div class="col-sm-10 mt-3">
+            <select class="form-select" aria-label="Default select example"
+             value={to} onChange={(e) => setTo(e.target.value)}
+             {...register("mySelect", { required: true })}
+            >
+              <option selected disabled value=''>Select your country</option>
+
+              {
+                Object.keys(data).map((e) => {
+                  return (
+                    <option value={e}>{e}</option>
+                  )
+                })
+
+              }
+
+            </select>
+            {errors.mySelect?.type==='required' && <span className='validation-error'>This field is required</span>}
+          </div>
+
+
+          {/* number type */}
+          <label class="col-sm-2 mt-3 col-form-label">Ph.Number :</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control mt-3" placeholder="number"
+              {...register('phoneNumber', {
+                required: true,
+                minLength: 8,
+                maxLength: 12,
+              })}
+            />
+            <span>
+              {errors.phoneNumber?.type === 'required' && <span className='validation-error'>enter your phone number</span>}
+              {errors.phoneNumber?.type === 'maxLength' && <span className='validation-error'>maximum 12 numbers</span>}
+              {errors.phoneNumber?.type === 'minLength' && <span className='validation-error'>minimum 8 numbers</span>}
+            </span>
+          </div>
+
+
 
           {/* search type */}
           <label class="col-sm-2 mt-3 col-form-label">Search :</label>
@@ -99,83 +131,95 @@ const[rangeVald,setRangeVald]=useState(0)
           </div>
 
           {/* file type */}
-          <label class="col-sm-2 mt-3 col-form-label">File :</label>
+          <label class="col-sm-2 mt-3 col-form-label">Photo :</label>
           <div class="col-sm-10">
-            <input type="file" class="form-control mt-3"
+            <input type="file" class="form-control mt-3" accept="image/png, image/jpeg, image/jpg"
               {...register('file', {
                 required: true,
-              })} />
+
+              })}
+            />
             <span>
-              {errors.file?.type === 'required' && <span className='validation-error'>choose your file</span>}
+              {errors.file?.type === 'required' && <span className='validation-error'>choose your picture</span>}
             </span>
           </div>
 
           {/* date type */}
           <label class="col-sm-2 mt-3 col-form-label">Date of Birth :</label>
           <div class="col-sm-10">
-            <input type="date" class="form-control mt-3"  min="1995-01-01" max="2023-03-07"
-             {...register("date",
-             { required: true,
-               })}
+            <input type="date" class="form-control mt-3" min="1995-01-01" max="2023-03-07"
+              {...register("date",
+                {
+                  required: true,
+                })}
             />
-         
+
             <span>
-            {errors.date?.type === 'required' && <span className='validation-error'>enter your date of birth</span>}
+              {errors.date?.type === 'required' && <span className='validation-error'>enter your date of birth</span>}
             </span>
           </div>
 
           {/* month type */}
           <label class="col-sm-2 mt-3 col-form-label">Month/Year :</label>
           <div class="col-sm-10">
-            <input type="month" class="form-control mt-3" placeholder="Password"    min="1998-01" max="2023-01" 
-             {...register("month",
-             { required: true,
-               })}
+            <input type="month" class="form-control mt-3" placeholder="Password" min="1998-01" max="2023-01"
+              {...register("month",
+                {
+                  required: true,
+                })}
             />
-         
+
             <span>
-            {errors.month?.type === 'required' && <span className='validation-error'>enter your birth month & year</span>}
+              {errors.month?.type === 'required' && <span className='validation-error'>enter your birth month & year</span>}
             </span>
           </div>
 
           {/* week type */}
           <label class="col-sm-2 mt-3 col-form-label ">Week :</label>
           <div class="col-sm-10">
-            <input type="week" class="form-control mt-3" placeholder="Password"  min="1998-W01"   max="2023-W08" 
-             {...register("week",
-             { required: true,
-               })}
+            <input type="week" class="form-control mt-3" placeholder="Password" min="1998-W01" max="2023-W08"
+              {...register("week",
+                {
+                  required: true,
+                })}
             />
-         
+
             <span>
-            {errors.week?.type === 'required' && <span className='validation-error'>enter your birth week</span>}
+              {errors.week?.type === 'required' && <span className='validation-error'>enter your birth week</span>}
             </span>
           </div>
 
           {/* time type */}
           <label class="col-sm-2 mt-3 col-form-label">Time :</label>
           <div class="col-sm-10">
-            <input type="time" class="form-control mt-3" placeholder="Password" 
+            <input type="time" class="form-control mt-3" placeholder="Password"
               {...register("time",
-              { required: true,
+                {
+                  required: true,
                 })}
-             />
-          
-             <span>
-             {errors.time?.type === 'required' && <span className='validation-error'>set the birth time</span>}
-             </span>
+            />
+
+            <span>
+              {errors.time?.type === 'required' && <span className='validation-error'>set the birth time</span>}
+            </span>
           </div>
 
           {/* tel type */}
           <label class="col-sm-2 mt-3 col-form-label">Ph.Number :</label>
           <div class="col-sm-10">
-            <input type="tel" class="form-control mt-3" placeholder="tel" 
-             {...register("mobileNumber",
-              { required: true,
-                 pattern: /^[0-9]{10}$/ })}            
+            <input type="tel" class="form-control mt-3" placeholder="tel"
+              {...register("mobileNumber",
+                {
+                  required: true,
+                  pattern: /^[0-9]{10}$/,
+                  maxLength: 10,
+                })}
+
             />
             <span>
-            {errors.mobileNumber?.type === 'required' && <span className='validation-error'>enter your mobile number</span>}
+              {errors.mobileNumber?.type === 'required' && <span className='validation-error'>enter your mobile number</span>}
+              {errors.mobileNumber?.type === 'maxLength' && <span className='validation-error'>maximum 10 digits are allowed</span>}
+              {errors.mobileNumber?.type === 'pattern' && <span className='validation-error'>example : 0987654321 minimum 10 digits</span>}
             </span>
 
           </div>
@@ -183,27 +227,26 @@ const[rangeVald,setRangeVald]=useState(0)
           {/* range type */}
           <label class="col-sm-2 mt-3 col-form-label">Range :</label>
           <div class="col-sm-10">
-            <input type="range" class="form-range mt-4" />
+
+
+
+            <input class=" mt-4" onChange={(e) => setRange(e.target.value)} min='1' max='50'
+              type="range"
+            // {...register("rangeInput", {
+            //   required: "This field is required",
+            //   min: { value: 10, message: "Minimum age is 15" },
+            //   max: { value: 45, message: "Maximum age is 45" }
+            // })}
+            />
+            <span>  </span> <input value={Range} />
+            {errors.rangeInput?.type === 'min' && <span className='validation-error'>okk</span>}
+
           </div>
 
 
 
-          {/* <label>
-        Age:
-        <input 
-          type="range"
-          {...register("age", { required: true, min: 18, max: 99 })} 
-        />
-      </label>
-      {errors.age && errors.age.type === "required" && (
-        <span>This field is required</span>
-      )}
-      {errors.age && errors.age.type === "min" && (
-        <span>You must be at least 18 years old</span>
-      )}
-      {errors.age && errors.age.type === "max" && (
-        <span>You cannot be more than 99 years old</span>
-      )} */}
+
+
           {/* radio type */}
           <label class="col-sm-2 mt-3 col-form-label">Radio :</label>
           <div class="col-sm-10 mt-4">
@@ -228,16 +271,7 @@ const[rangeVald,setRangeVald]=useState(0)
             <input type="color" class="form-control form-control-color mt-3" />
           </div>
 
-          {/* Options */}
-          <label class="col-sm-2 mt-3 col-form-label">Options :</label>
-          <div class="col-sm-10 mt-3">
-            <select class="form-select" aria-label="Default select example" required>
-              <option selected disabled>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
+
 
           {/* password type */}
           <label class="col-sm-2 mt-3 col-form-label">Password :</label>
