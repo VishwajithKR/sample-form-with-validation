@@ -8,7 +8,6 @@ import data from '../assets/data'
 
 function Form() {
 
-  const [Range, setRange] = useState(0)
   const [to, setTo] = useState()
 
   const {
@@ -22,8 +21,6 @@ function Form() {
 
   const onSubmit = (data) => {
     console.log(data);
-
-
   }
 
 
