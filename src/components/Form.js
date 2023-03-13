@@ -5,17 +5,20 @@ import data from '../assets/data'
 
 
 
+
 function Form() {
 
-  const [Range, setRange] = useState(25)
+  const [Range, setRange] = useState(0)
   const [to, setTo] = useState()
 
   const {
     register,
     formState: { errors },
     handleSubmit,
+    watch
   } = useForm();
 
+  const rangeValue = watch('rangeInput');
 
   const onSubmit = (data) => {
     console.log(data);
@@ -23,12 +26,12 @@ function Form() {
 
   }
 
+
   return (
     <div className='container mb-4'>
       <form className='form' onSubmit={handleSubmit(onSubmit)}>
 
         <div class="form-group row" >
-
 
 
 
@@ -62,8 +65,8 @@ function Form() {
           <label class="col-sm-2 mt-3 col-form-label">Options :</label>
           <div class="col-sm-10 mt-3">
             <select class="form-select" aria-label="Default select example"
-             value={to} onChange={(e) => setTo(e.target.value)}
-             {...register("mySelect", { required: true })}
+              value={to} onChange={(e) => setTo(e.target.value)}
+              {...register("mySelect", { required: true })}
             >
               <option selected disabled value=''>Select your country</option>
 
@@ -77,7 +80,7 @@ function Form() {
               }
 
             </select>
-            {errors.mySelect?.type==='required' && <span className='validation-error'>This field is required</span>}
+            {errors.mySelect?.type === 'required' && <span className='validation-error'>This field is required</span>}
           </div>
 
 
@@ -131,7 +134,7 @@ function Form() {
           </div>
 
           {/* file type */}
-          <label class="col-sm-2 mt-3 col-form-label">Photo :</label>
+          <label class="col-sm-2 mt-3 col-form-label" >Photo :</label>
           <div class="col-sm-10">
             <input type="file" class="form-control mt-3" accept="image/png, image/jpeg, image/jpg"
               {...register('file', {
@@ -225,25 +228,16 @@ function Form() {
           </div>
 
           {/* range type */}
+         
+
+
           <label class="col-sm-2 mt-3 col-form-label">Range :</label>
-          <div class="col-sm-10">
-
-
-
-            <input class=" mt-4" onChange={(e) => setRange(e.target.value)} min='1' max='50'
-              type="range"
-            // {...register("rangeInput", {
-            //   required: "This field is required",
-            //   min: { value: 10, message: "Minimum age is 15" },
-            //   max: { value: 45, message: "Maximum age is 45" }
-            // })}
-            />
-            <span>  </span> <input value={Range} />
-            {errors.rangeInput?.type === 'min' && <span className='validation-error'>okk</span>}
+          <div class="col-sm-10 mt-4">
+          <input  type="range" min={0} max={100} {...register('rangeInput', { required: true, min: 18, max: 45 })} />
+          {errors.rangeInput && <span className='validation-error' > This field is required and should be between 18 and 45</span>}
+          <p>Range Value: {rangeValue}</p>
 
           </div>
-
-
 
 
 
@@ -268,8 +262,16 @@ function Form() {
           {/* color type */}
           <label class="col-sm-2 mt-3 col-form-label">Color :</label>
           <div class="col-sm-10">
-            <input type="color" class="form-control form-control-color mt-3" />
+            <input type="color" class="form-control-color mt-3"
+              {...register("color", { required: true })}
+            />
+            {errors.color && <span className='validation-error'>This field is required</span>}
           </div>
+
+
+
+
+
 
 
 
